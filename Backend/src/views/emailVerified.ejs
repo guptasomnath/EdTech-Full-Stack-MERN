@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="px-8 h-screen w-full flex justify-center flex-col items-center bg-gray-200">
+    <% 
+        failedTextColor = "text-[#b91c1c]"
+        successTextColor = "text-[#047857]"
+        successImage = "/images/undraw_opened_re_i38e.svg"
+        faliedImage  = "/images/undraw_cancel_re_pkdm.svg"
+    %>
+
+    <img height="250px" width="250px" src="<%= success? successImage : faliedImage %>" />
+    <h1 class="font-semibold pt-2 text-xl <%= success? successTextColor : failedTextColor %> text-center"><%= message %></h1>
+</body>
+</html>

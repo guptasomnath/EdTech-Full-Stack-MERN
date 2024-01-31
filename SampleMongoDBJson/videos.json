@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "65617be03695fd6cf6395ab8"
+  },
+  "courseID": {
+    "$oid": "65a2354c7a86181ea6a051c6"
+  },
+  "title": "Html Full Video",
+  "duration": "3500",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65617be03695fd6cf6395ab9"
+  },
+  "courseID": {
+    "$oid": "65a2354c7a86181ea6a051c6"
+  },
+  "title": "Learn how to use css with html",
+  "duration": "2500",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65617be03695fd6cf6395aba"
+  },
+  "courseID": {
+    "$oid": "65a2354c7a86181ea6a051c7"
+  },
+  "title": "Learn how to use javascript with html, and css",
+  "duration": "250000",
+  "__v": 0
+}]

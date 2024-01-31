@@ -1,0 +1,1 @@
+export const pendingVerifyMailList = new Map<string, string>();

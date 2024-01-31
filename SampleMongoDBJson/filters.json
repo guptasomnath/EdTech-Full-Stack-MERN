@@ -1,0 +1,99 @@
+[{
+  "_id": {
+    "$oid": "6586f1bb0b21888f498f6b57"
+  },
+  "filterName": "Ratings",
+  "filterOptionList": [
+    {
+      "optionName": "4.0 or more",
+      "optionQueryCode": {
+        "$gte": 4
+      },
+      "_id": {
+        "$oid": "6586f1bb0b21888f498f6b58"
+      }
+    },
+    {
+      "optionName": "4.0 or less",
+      "optionQueryCode": {
+        "$lt": 4
+      },
+      "_id": {
+        "$oid": "6586f1bb0b21888f498f6b59"
+      }
+    },
+    {
+      "optionName": "3.0 or more",
+      "optionQueryCode": {
+        "$gte": 3
+      },
+      "_id": {
+        "$oid": "6586f1bb0b21888f498f6b5a"
+      }
+    },
+    {
+      "optionName": "3.0 or less",
+      "optionQueryCode": {
+        "$lt": 3
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6586f1bb0b21888f498f6b5b"
+  },
+  "filterName": "Price",
+  "filterOptionList": [
+    {
+      "optionName": "Free",
+      "optionQueryCode": {
+        "$lte": 0
+      },
+      "_id": {
+        "$oid": "6586f1bb0b21888f498f6b5c"
+      }
+    },
+    {
+      "optionName": "Paid",
+      "optionQueryCode": {
+        "$gt": 0
+      },
+      "_id": {
+        "$oid": "6586f1bb0b21888f498f6b5d"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6586f1bb0b21888f498f6b5e"
+  },
+  "filterName": "Language",
+  "filterOptionList": [
+    {
+      "optionName": "English",
+      "optionQueryCode": "en",
+      "_id": {
+        "$oid": "6586f1bb0b21888f498f6b5f"
+      }
+    },
+    {
+      "optionName": "Hindi",
+      "optionQueryCode": "Hindi",
+      "_id": {
+        "$oid": "6586f1bb0b21888f498f6b60"
+      }
+    },
+    {
+      "optionName": "Bengli",
+      "optionQueryCode": "Bengli",
+      "_id": {
+        "$oid": "6586f1bb0b21888f498f6b61"
+      }
+    }
+  ],
+  "__v": 0
+}]

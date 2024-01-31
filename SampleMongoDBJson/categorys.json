@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "65a23a9eb2b7bf3ed1bff4b1"
+  },
+  "categoryName": "Project Manager"
+},
+{
+  "_id": {
+    "$oid": "65a23b05b2b7bf3ed1bff4b4"
+  },
+  "categoryName": "Full Stack Development"
+},
+{
+  "_id": {
+    "$oid": "65a23b1ab2b7bf3ed1bff4b5"
+  },
+  "categoryName": "Machine Learning"
+},
+{
+  "_id": {
+    "$oid": "65a23b36b2b7bf3ed1bff4b6"
+  },
+  "categoryName": "Deep Learning"
+},
+{
+  "_id": {
+    "$oid": "65a23b46b2b7bf3ed1bff4b7"
+  },
+  "categoryName": "App Development"
+}]
