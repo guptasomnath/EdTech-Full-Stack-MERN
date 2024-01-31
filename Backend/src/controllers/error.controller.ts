@@ -14,7 +14,7 @@ const devError = (res: Response, error: ErrorHander) => {
 const prodError = (res: Response, error: ErrorHander) => {
   if (!error.isOperational) {
     res.status(500).json(
-      new ApiResponse(500, "Something went wrong! please try again later.")
+      new ApiResponse(500, "Something went wrong! please try again later.", error)
     )
     return;
   }

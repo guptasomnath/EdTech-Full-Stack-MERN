@@ -56,15 +56,15 @@ export const signup = catchAsyncErrors(async (req: Request, res: Response, next:
   //extract user information from http request
   const { name, email, password } = req.body;
 
-  //sending verification email
-  await sendVerifyEmail(email);
-
   //store user information
   const result = await UserModel.create({
     name,
     email,
     password
   });
+
+  //sending verification email
+  await sendVerifyEmail(email);
 
   if (!result) throw new ErrorHander("An error occurred during the signup process.", 500);
 
