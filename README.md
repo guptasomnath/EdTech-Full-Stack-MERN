@@ -12,6 +12,9 @@ Live demo :- https://edtech-ui-react.vercel.app/
 <br />
 Backend api demo :- https://edtech-node-api.vercel.app/
 <br />
+<br />
+**Test account details**
+<br />
 Gmail : - somnathgupta112@gmail.com,
 <br />
 Password : - 1234567
