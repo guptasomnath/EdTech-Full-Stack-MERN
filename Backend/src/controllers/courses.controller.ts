@@ -11,6 +11,7 @@ import { getUserTokens } from "../utils/getUserTokens";
 import { FilterModule } from "../models/Filters";
 import { createFakeCoursesData } from "../utils/fakeDataGenerator";
 import { createOrder } from "../utils/createOrder";
+import { isValidObjectId } from "../utils/isValidObjectId";
 
 export const queryCourse = catchAsyncErrors(async (req: Request, res: Response) => {
     //this controller for both /courses and /search route
@@ -24,7 +25,7 @@ export const queryCourse = catchAsyncErrors(async (req: Request, res: Response) 
 
 
     //extract values from request body
-    const limit= parseInt(req.query.limit as string || "6");
+    const limit = parseInt(req.query.limit as string || "6");
     const skip = parseInt(req.query.skip as string || "0");
     const reqCategoryName = req.query.category || null;
     const fields = req.query.fields as string;
@@ -101,8 +102,12 @@ export const getCourse = catchAsyncErrors(async (req: Request, res: Response) =>
 
     //if data not exist with this id throw error
     const courseID = req.params.courseID;
+
+    const errmsg = isValidObjectId([courseID]);
+    if (errmsg) throw new ErrorHander(errmsg, 400);
+
     const response = await CourseModel.findById(courseID, req.body.query);
-    if (!response) throw new ErrorHander(`Course is not exist with this id ${courseID}`, 404);
+    if (!response) throw new ErrorHander(`Course does not exist with this id ${courseID}`, 404);
 
     res.status(200).json(
         new ApiResponse(200, "Success", response)
@@ -117,9 +122,12 @@ export const enrollCourse = catchAsyncErrors(async (req: Request, res: Response)
 
     const courseID = req.body.courseID;
 
+    const errmsg = isValidObjectId([courseID]);
+    if (errmsg) throw new ErrorHander(errmsg, 400);
+
     const requestToken = getUserTokens(req);
     const [tokenValue, err] = vefifyJwtToken(requestToken);
-    if(err) throw new ErrorHander("Please provide an authorization token.", 401);
+    if (err) throw new ErrorHander("Please provide an authorization token.", 401);
 
     const userIdfromJwt = tokenValue._id;
 
@@ -145,10 +153,10 @@ export const enrollCourse = catchAsyncErrors(async (req: Request, res: Response)
     }
 
     //if course is paid then create payment links
-    const {id, amount} = await createOrder(courseDetails.price * 100);
+    const { id, amount } = await createOrder(courseDetails.price * 100);
 
     res.status(201).json(
-        new ApiResponse(201, "Order id created", { orderId : id, amount, razorpayKey : process.env.RAZORPAY_KEY_ID }) //paymentPage.data.longurl
+        new ApiResponse(201, "Order id created", { orderId: id, amount, razorpayKey: process.env.RAZORPAY_KEY_ID }) //paymentPage.data.longurl
     )
 
 })
@@ -156,14 +164,15 @@ export const enrollCourse = catchAsyncErrors(async (req: Request, res: Response)
 export const filterCourse = catchAsyncErrors(async (req: Request, res: Response) => {
 
     const findQuery = req.body.query;
-    // const pageNumber: any = req.query.page || 1;
-    const limit= parseInt(req.query.limit as string || "6");
+    if (!findQuery) throw new ErrorHander("'query' field in required", 400);
+
+    const limit = parseInt(req.query.limit as string || "6");
     const skip = parseInt(req.query.skip as string || "0");
 
 
     const result = await CourseModel.aggregate([
         {
-            $match : findQuery
+            $match: findQuery
         },
         {
             $facet: {
@@ -191,8 +200,8 @@ export const filterCourse = catchAsyncErrors(async (req: Request, res: Response)
     const documents = result[0].documents;
 
     const returnValues = {
-        pages : getTotalPageNumber(totalDocumentLength, limit),
-        courses : documents
+        pages: getTotalPageNumber(totalDocumentLength, limit),
+        courses: documents
     }
 
     res.status(200).json(

@@ -6,6 +6,7 @@ import { ErrorHander } from "../utils/ErrorHander";
 import { getTotalPageNumber } from "../utils/getTotalPageNumber";
 import { ApiResponse } from "../utils/ApiResponse";
 import { CourseModel } from "../models/Course";
+import { isValidObjectId } from "../utils/isValidObjectId";
 import mongoose from "mongoose";
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -18,7 +19,10 @@ export const getRatings = catchAsyncErrors(async (req: Request, res: Response) =
   const limit = parseInt(req.query.limit as string || "6");
   const skip = parseInt(req.query.skip as string || "0");
   const userID = req.query.userID as string;
-  
+
+  const errmsg = isValidObjectId([courseID, userID]);
+  if (errmsg) throw new ErrorHander(errmsg, 400);
+
   const findQuery = {
     courseID: { $eq: new ObjectId(courseID) }
   };
@@ -58,8 +62,7 @@ export const getRatings = catchAsyncErrors(async (req: Request, res: Response) =
 
   const result = await RatingsModule.aggregate(pipeline);
 
-
-  const totalDocuments = result[0].totalCount.length !== 0 ? result[0].totalCount[0].value : 0; 
+  const totalDocuments = result[0].totalCount.length !== 0 ? result[0].totalCount[0].value : 0;
 
   const returnResponse: any = {
     ratings: result[0].allRatings,
@@ -80,8 +83,13 @@ export const storeRating = catchAsyncErrors(async (req: Request, res: Response) 
   if (error) throw new ErrorHander(error.message, 400);
 
   const { courseID, stars } = req.body;
-  
+
+  const errmsg = isValidObjectId([courseID]);
+  if (errmsg) throw new ErrorHander(errmsg, 400);
+
   const course = await CourseModel.findById(courseID, ['ratings', 'totalRatings']);
+  if (!course) throw new ErrorHander("The course does not exist.", 404);
+
   const newTotalRatings = course.totalRatings + 1;
   const newAveRating = ((course.ratings * course.totalRatings + stars) / newTotalRatings).toFixed(1);
 
@@ -93,7 +101,7 @@ export const storeRating = catchAsyncErrors(async (req: Request, res: Response) 
     totalRatings: newTotalRatings
   }
   await CourseModel.updateOne(filter, update);
- 
+
   res.status(201).json(
     new ApiResponse(201, "Rating Added Successfully.")
   );
@@ -106,6 +114,9 @@ export const updateRating = catchAsyncErrors(async (req: Request, res: Response)
 
   const ratingID = req.body.ratingID;
   const userID = req.body.userID;
+
+  const errmsg = isValidObjectId([ratingID, userID]);
+  if (errmsg) throw new ErrorHander(errmsg, 400);
 
   const ratingsDetails = await RatingsModule.findById(ratingID);
   if (!ratingsDetails) throw new ErrorHander(`invalid id ${ratingID}`, 404);

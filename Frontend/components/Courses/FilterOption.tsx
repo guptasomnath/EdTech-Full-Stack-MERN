@@ -22,9 +22,11 @@ const FilterOption = ({
   checkedItem,
   setCheckedItem,
 }: Props) => {
+  
   const fildName = filterName.toLowerCase();
-  let inputChecked =
-    filtersValue.get(fildName)?.optionName === optionName ? true : false;
+
+  let inputChecked = filtersValue.get(fildName)?.optionName === optionName ? true : false;
+
   const onCheckBoxChanged = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.checked) {
       setCheckedItem(index);

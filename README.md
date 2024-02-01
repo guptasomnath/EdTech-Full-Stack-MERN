@@ -4,7 +4,7 @@
 This is a full-stack web application created using MERN (MongoDB, Express.js, React, Node.js) technology. It incorporates advanced features such as user authentication, video streaming, payment gateway integration, and more.
 
 **Backend Api Documentation** <br />
-comming soon..
+[https://documenter.getpostman.com/view/28984137/2s9YeD9td5](https://documenter.getpostman.com/view/28984137/2s9YeD9td5)
 
 **Testing Details**
 <br />

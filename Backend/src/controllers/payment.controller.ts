@@ -4,12 +4,17 @@ import { Request, Response } from "express";
 import { UserModel } from "../models/User";
 import { ApiResponse } from "../utils/ApiResponse";
 import { fetchAnOrder } from "../utils/createOrder";
+import { isValidObjectId } from "../utils/isValidObjectId";
+import { ErrorHander } from "../utils/ErrorHander";
 
 export const checkPayment = catchAsyncErrors(async (req: Request, res: Response) => {
 
-    const userID = req.query.userID;
+    const userID = req.query.userID as string;
     const order_id = req.query.order_id;
-    const courseID = req.query.courseID;
+    const courseID = req.query.courseID as string;
+
+    const errmsg = isValidObjectId([courseID, userID]);
+    if (errmsg) throw new ErrorHander(errmsg, 400);
 
     const { amount_paid, status } = await fetchAnOrder(order_id.toString());
 

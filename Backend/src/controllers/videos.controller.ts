@@ -11,6 +11,7 @@ import { ApiResponse } from "../utils/ApiResponse";
 import { getUserTokens } from "../utils/getUserTokens";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
+import { isValidObjectId } from "../utils/isValidObjectId";
 
 export const getAllVideosList = catchAsyncErrors(async (req: Request, res: Response) => {
 
@@ -25,6 +26,9 @@ export const getAllVideosList = catchAsyncErrors(async (req: Request, res: Respo
 
     const userId = tokenData._id;
     const courseID: any = req.params.courseID;
+
+    const errmsg = isValidObjectId([courseID]);
+    if (errmsg) throw new ErrorHander(errmsg, 400);
 
     //check is the user enrolled to this course or not if not show error
     const userDetails = await UserModel.findById(userId, "enrolledCourses");
@@ -56,6 +60,9 @@ export const getAllVideosList = catchAsyncErrors(async (req: Request, res: Respo
 export const streamVideo = catchAsyncErrors(async (req: Request, res: Response, next: NextFunction) => {
 
     const videoID = req.params.videoID;
+
+    const errmsg = isValidObjectId([videoID]);
+    if (errmsg) throw new ErrorHander(errmsg, 400);
 
     const filePath = path.join(__dirname, `../videos/${videoID}.mp4`);
 

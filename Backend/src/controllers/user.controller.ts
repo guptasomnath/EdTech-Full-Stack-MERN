@@ -8,6 +8,7 @@ import { ErrorHander } from "../utils/ErrorHander";
 import { createJwtToken } from "../services/auth";
 import { ApiResponse } from "../utils/ApiResponse";
 import mongoose from "mongoose";
+import { isValidObjectId } from "../utils/isValidObjectId";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const login = catchAsyncErrors(async (req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +27,7 @@ export const login = catchAsyncErrors(async (req: Request, res: Response, next: 
   if (!user) throw new ErrorHander("User is not exist", 404);
 
   //check is user verify email or not
-  if(!user.isVerified) throw new ErrorHander("Please veify your email first", 400);
+  if (!user.isVerified) throw new ErrorHander("Please veify your email first", 400);
 
   //check user psssword
   const isPasswordMatched = await user.comparePassword(password);
@@ -143,10 +144,15 @@ export const updatePassword = catchAsyncErrors(async (req: Request, res: Respons
 
 export const getProfileInfo = catchAsyncErrors(async (req: Request, res: Response) => {
 
+  const userID = req.params.userID
+
+  const errmsg = isValidObjectId([userID]);
+  if (errmsg) throw new ErrorHander(errmsg, 400);
+
   const userInfo = await UserModel.aggregate([
     {
       $match: {
-        _id: new ObjectId(req.params.userID)
+        _id: new ObjectId(userID)
       }
     },
     {
