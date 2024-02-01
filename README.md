@@ -15,7 +15,7 @@ Backend api demo :- https://edtech-node-api.vercel.app/
 <br />
 **Test account details**
 <br />
-Gmail : - somnathgupta112@gmail.com,
+Gmail : - somnathgupta112@gmail.com
 <br />
 Password : - 1234567
 
