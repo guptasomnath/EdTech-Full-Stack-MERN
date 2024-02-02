@@ -1,4 +1,3 @@
-
 # EdTech Full Stack Project (MERN)
 
 This is a full-stack web application created using MERN (MongoDB, Express.js, React, Node.js) technology. It incorporates advanced features such as user authentication, video streaming, payment gateway integration, and more.
@@ -18,7 +17,6 @@ Backend api demo :- https://edtech-node-api.vercel.app/
 Gmail : - somnathgupta112@gmail.com
 <br />
 Password : - 1234567
-
 
 ## Run Locally
 
@@ -47,6 +45,7 @@ Go back one level from the Frontend folder.
 ```bash
 cd..
 ```
+
 Open Backend folder then install packages and start the server
 
 ```bash
@@ -59,7 +58,12 @@ It will run Frontend at [http://localhost:3000](http://localhost:3000)
 <br />
 and Backend at [http://localhost:8080](http://localhost:8080)
 
-## If you need example data for MongoDB, you can find the related .json files below 
+```bash
+Following that, please remember to modify the 'API_BASE_URL' within the 'Frontend/config/constant.ts' file. Replace the original URL with 'http://localhost:8080/api/v1'.
+```
+
+## If you need example data for MongoDB, you can find the related .json files below
+
 https://github.com/guptasomnath/EdTech-Full-Stack-MERN/tree/main/SampleDBData
 
 #### Don't forget to create the .env file inside the Backend folder. Check the .env.test file in the Backend folder for the necessary keys for the backend API.
